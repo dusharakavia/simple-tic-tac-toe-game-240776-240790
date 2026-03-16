@@ -1,0 +1,320 @@
+/* Tic Tac Toe App Styles (light theme with #3b82f6 and #06b6d4 accents) */
+
+:root {
+  --bg: #f9fafb;
+  --surface: #ffffff;
+  --text: #111827;
+  --muted: #64748b;
+  --border: rgba(15, 23, 42, 0.10);
+
+  --primary: #3b82f6;
+  --success: #06b6d4;
+  --danger: #ef4444;
+
+  --shadow: 0 14px 40px rgba(15, 23, 42, 0.12);
+  --shadow-soft: 0 10px 24px rgba(15, 23, 42, 0.08);
+
+  --radius: 18px;
+  --radius-sm: 14px;
+
+  --board-gap: 12px;
+  --square-radius: 16px;
+  --square-bg: rgba(59, 130, 246, 0.06);
+  --square-bg-hover: rgba(59, 130, 246, 0.10);
+
+  --focus: 0 0 0 4px rgba(59, 130, 246, 0.25);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.App {
+  min-height: 100vh;
+  background:
+    radial-gradient(900px 500px at 10% 10%, rgba(6, 182, 212, 0.14), transparent 55%),
+    radial-gradient(900px 520px at 90% 15%, rgba(59, 130, 246, 0.14), transparent 55%),
+    linear-gradient(180deg, var(--bg), #ffffff 55%);
+  color: var(--text);
+}
+
+.ttt-shell {
+  width: min(920px, 100%);
+  margin: 0 auto;
+  padding: 28px 18px 44px;
+  display: grid;
+  gap: 16px;
+}
+
+.ttt-header {
+  display: grid;
+  gap: 12px;
+  align-items: center;
+  grid-template-columns: 1fr auto;
+}
+
+.ttt-titleBlock {
+  display: grid;
+  gap: 6px;
+}
+
+.ttt-title {
+  margin: 0;
+  font-size: clamp(26px, 3.4vw, 40px);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.ttt-subtitle {
+  margin: 0;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.ttt-status {
+  justify-self: end;
+}
+
+.ttt-statusPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.75);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-soft);
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--text);
+  backdrop-filter: blur(10px);
+}
+
+.ttt-statusPill.is-winner {
+  border-color: rgba(6, 182, 212, 0.45);
+  background: rgba(6, 182, 212, 0.12);
+}
+
+.ttt-statusPill.is-draw {
+  border-color: rgba(100, 116, 139, 0.35);
+  background: rgba(100, 116, 139, 0.10);
+  color: rgba(17, 24, 39, 0.9);
+}
+
+.ttt-card {
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.78);
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  padding: 18px;
+  backdrop-filter: blur(10px);
+}
+
+.ttt-board {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--board-gap);
+  width: min(520px, 100%);
+  margin: 0 auto;
+}
+
+.ttt-square {
+  -webkit-tap-highlight-color: transparent;
+  aspect-ratio: 1 / 1;
+  width: 100%;
+  border-radius: var(--square-radius);
+  border: 1px solid rgba(59, 130, 246, 0.18);
+  background: var(--square-bg);
+  box-shadow: 0 10px 18px rgba(15, 23, 42, 0.07);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: transform 140ms ease, background-color 140ms ease, border-color 140ms ease, box-shadow 140ms ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.ttt-square:hover {
+  transform: translateY(-1px);
+  background: var(--square-bg-hover);
+  border-color: rgba(59, 130, 246, 0.28);
+  box-shadow: 0 14px 26px rgba(15, 23, 42, 0.10);
+}
+
+.ttt-square:active {
+  transform: translateY(0);
+}
+
+.ttt-square:focus-visible {
+  outline: none;
+  box-shadow: var(--shadow-soft), var(--focus);
+}
+
+.ttt-square:disabled {
+  cursor: default;
+  opacity: 1;
+}
+
+.ttt-mark {
+  font-size: clamp(44px, 6vw, 76px);
+  font-weight: 800;
+  letter-spacing: -0.05em;
+  line-height: 1;
+  transform: translateY(-1px);
+}
+
+.ttt-square.is-X .ttt-mark {
+  color: var(--primary);
+  text-shadow: 0 10px 30px rgba(59, 130, 246, 0.25);
+}
+
+.ttt-square.is-O .ttt-mark {
+  color: var(--success);
+  text-shadow: 0 10px 30px rgba(6, 182, 212, 0.22);
+}
+
+/* Winning-line highlight */
+.ttt-square.is-winning {
+  border-color: rgba(6, 182, 212, 0.70);
+  background: rgba(6, 182, 212, 0.14);
+  box-shadow:
+    0 14px 30px rgba(6, 182, 212, 0.18),
+    0 10px 24px rgba(15, 23, 42, 0.10);
+}
+
+.ttt-square.is-winning::after {
+  content: "";
+  position: absolute;
+  inset: -30%;
+  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.65), transparent 55%);
+  transform: rotate(12deg);
+  pointer-events: none;
+}
+
+.ttt-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding-top: 16px;
+  margin: 0 auto;
+  width: min(520px, 100%);
+}
+
+.ttt-btn {
+  appearance: none;
+  border: 0;
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-weight: 800;
+  color: #ffffff;
+  background: linear-gradient(135deg, var(--primary), rgba(6, 182, 212, 0.95));
+  box-shadow: 0 14px 26px rgba(59, 130, 246, 0.22);
+  cursor: pointer;
+  transition: transform 140ms ease, box-shadow 140ms ease, filter 140ms ease;
+}
+
+.ttt-btn:hover {
+  transform: translateY(-1px);
+  filter: saturate(1.05);
+  box-shadow: 0 18px 34px rgba(59, 130, 246, 0.28);
+}
+
+.ttt-btn:active {
+  transform: translateY(0);
+}
+
+.ttt-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 18px 34px rgba(59, 130, 246, 0.22), var(--focus);
+}
+
+.ttt-hint {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.35;
+  text-align: right;
+}
+
+.ttt-hintKey {
+  color: rgba(17, 24, 39, 0.9);
+  font-weight: 700;
+  margin-right: 6px;
+}
+
+.ttt-footer {
+  display: flex;
+  justify-content: center;
+  padding-top: 2px;
+}
+
+.ttt-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 14px;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.ttt-legendItem {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.70);
+  backdrop-filter: blur(10px);
+}
+
+.ttt-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  display: inline-block;
+  box-shadow: 0 8px 16px rgba(15, 23, 42, 0.10);
+}
+
+.ttt-dot.is-x {
+  background: var(--primary);
+}
+
+.ttt-dot.is-o {
+  background: var(--success);
+}
+
+.ttt-dot.is-win {
+  background: linear-gradient(135deg, var(--success), var(--primary));
+}
+
+/* Responsive tweaks */
+@media (max-width: 520px) {
+  :root {
+    --board-gap: 10px;
+    --square-radius: 14px;
+  }
+
+  .ttt-header {
+    grid-template-columns: 1fr;
+  }
+
+  .ttt-status {
+    justify-self: start;
+  }
+
+  .ttt-controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .ttt-hint {
+    text-align: left;
+  }
+
+  .ttt-btn {
+    width: 100%;
+    padding: 12px 14px;
+  }
+}
